@@ -1,8 +1,13 @@
 window.onload = function () {
   "use strict";
+  //set correct 100% height
+  document.querySelector('body').style.height = window.innerHeight + 'px';
+  window.addEventListener('resize', ()=>{
+    document.querySelector('body').style.height = window.innerHeight + 'px';
+  });
+
   let user1_msg = document.querySelector('div.messages.user1');//tree of user1 messages
   let user2_msg = document.querySelector('div.messages.user2');//tree of user2 messages
-
 
   //send handler
   let sending = (e) =>{
@@ -13,22 +18,27 @@ window.onload = function () {
     let textarea = document.querySelector(`textarea#${user}-newMessage`);
 
     if(textarea.value){
-      let newMessageForActive = document.createElement('div');
-      newMessageForActive.innerHTML = textarea.value;
-      newMessageForActive.className = 'message user2'; //for correct color
+      if(textarea.value.replace(/ /g, '')!==''){
+        let newMessageForActive = document.createElement('div');
+        newMessageForActive.innerHTML = textarea.value;
+        newMessageForActive.className = 'message user2'; //for correct color
 
-      let newMessageForPassive = document.createElement('div');
-      newMessageForPassive.innerHTML = textarea.value;
-      newMessageForPassive.className = 'message user1';
-      if(textarea.id === 'user1-newMessage'){
-        user1_msg.appendChild(newMessageForActive);
-        user2_msg.appendChild(newMessageForPassive);
-      }
-      else{
-        user2_msg.appendChild(newMessageForActive);
-        user1_msg.appendChild(newMessageForPassive);
-      }
+        let newMessageForPassive = document.createElement('div');
+        newMessageForPassive.innerHTML = textarea.value;
+        newMessageForPassive.className = 'message user1';
+        if(textarea.id === 'user1-newMessage'){
+          user1_msg.appendChild(newMessageForActive);
+          user2_msg.appendChild(newMessageForPassive);
+        }
+        else{
+          user2_msg.appendChild(newMessageForActive);
+          user1_msg.appendChild(newMessageForPassive);
+        }
 
+        //scroll to bottom
+        user1_msg.scrollTop = user1_msg.scrollHeight;
+        user2_msg.scrollTop = user2_msg.scrollHeight;
+      }
       //reset user input
       textarea.value = null;
     }
@@ -43,10 +53,8 @@ window.onload = function () {
   //create listeners for Enter key
   let textareas = document.querySelectorAll('textarea');
   for(let area of textareas){
-    console.log(area);
     area.addEventListener('keyup',(e)=>{
       if (e.key === 'Enter') {
-        console.log(e);
         // Cancel the default action, if needed
         e.preventDefault();
         // Trigger the button element with a click
