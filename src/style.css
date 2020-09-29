@@ -1,0 +1,191 @@
+@font-face {
+    font-family: 'Work Sans';
+    src:
+            url('./fonts/Work Sans/Worksans.woff2') format('woff2'),
+            url('./fonts/Work Sans/Worksans.woff') format('woff'),
+            url('./fonts/Work Sans/Worksans.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    min-height: -webkit-fill-available;
+    font-family: "Work Sans", sans-serif;
+}
+header{
+    font-size: 36px;
+    font-weight: 700;
+    color: rgb(249, 249, 249);
+    height: 50px;
+    letter-spacing: 8px;
+    line-height: 50px;
+    background: rgba(183,222,237,1);
+    background: -moz-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(36,204,255,1) 0%, rgba(125,161,245,1) 0%, rgba(120,221,255,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(36,204,255,1) 0%, rgba(125,161,245,1) 0%, rgba(120,221,255,1) 100%);
+    background: -o-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(36,204,255,1) 0%, rgba(125,161,245,1) 0%, rgba(120,221,255,1) 100%);
+    background: -ms-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(36,204,255,1) 0%, rgba(125,161,245,1) 0%, rgba(120,221,255,1) 100%);
+    background: linear-gradient(to right, rgba(183,222,237,1) 0%, rgba(36,204,255,1) 0%, rgba(125,161,245,1) 0%, rgba(120,221,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', endColorstr='#78ddff', GradientType=1 );
+    text-transform: uppercase;
+    padding-left: 20px;
+}
+.container{
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - 50px);
+    font-size: 0;
+    overflow: hidden;
+}
+.container:after{
+    display: block;
+    content: '';
+    position: absolute;
+    left: 0;
+    filter: opacity(.2);
+    top: -60px;
+    width: 100vw;
+    height: 125vh;
+    background: url(svg/background.svg);
+    background-size: 500%;
+    z-index: -5;
+}
+.user{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+}
+@keyframes appear {
+    0%{
+        filter: opacity(0);
+    }
+    50%{
+        filter: opacity(.5);
+    }
+    100%{
+        filter: opacity(1);
+    }
+}
+.message.user1{
+    position: relative;
+    background-color: antiquewhite;
+}
+.message.user2 {
+    position: relative;
+    background: rgb(168, 224, 255);
+}
+.user:nth-child(1){
+    border-right: 1px solid rgba(158, 158, 158, 0.54);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.messages{
+    font-size: 18px;
+    padding: 5px;
+    height: 90%;
+    width: 100%;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    overflow-x: -moz-scrollbars-none;
+}
+.messages::-webkit-scrollbar {
+    width: 5px;
+}
+.message{
+    height: auto;
+    clear: both;
+    max-width: 70%;
+    word-break: break-all;
+    color: rgba(45, 45, 45, 0.76);
+    padding: 10px;
+    margin: 0 5px 5px 5px;
+    border-radius: 10px;
+    background-color: antiquewhite;
+    word-wrap: normal;
+    animation: appear .8s;
+}
+.messages.user1 .message.user2{
+    float: right;
+}
+.messages.user2 .message.user2{
+    float: right;
+}
+.input{
+    display: inline-block;
+    padding: 5px;
+    width: 100%;
+    height: 10%;
+    background-color: #e5e5e5;
+}
+textarea {
+    width: calc(100% - 80px);
+    height: 80%;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    border: 2px solid rgba(183,222,237,1);
+    font-size: 14px;
+    padding: 3px;
+    resize:none;
+}
+textarea:focus{
+    border: 4px solid rgba(183,222,237,1);
+}
+input[type='text'],
+textarea {
+    font-size: 14px;
+}
+.btn{
+    width: 60px;
+    height: 32px;
+    text-decoration: none;
+    text-align: center;
+    color: #FFFFFF;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(122, 187, 237);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 2;
+    font-family: PT Sans, sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: .5px;
+    float: right;
+    outline: none;
+}
+.btn:hover{
+    box-shadow: 10px 1px 9px -3px #959595;
+}
+.btn:focus{
+    box-shadow: none;
+}
+@media screen and (max-width:760px) {
+    .container:after{
+        background-size: 100% 100%;
+        top: -265px;
+
+    }
+    textarea {
+        width: calc(100% - 50px);
+    }
+    .btn{
+        width: 41px;
+    }
+}
+@media (hover: none) {
+    .btn:hover{
+        box-shadow: none;
+    }
+}
