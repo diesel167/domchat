@@ -1,7 +1,10 @@
 window.onload = function () {
   "use strict";
-  //set correct 100% height for IOS
-  document.querySelector('body').style.height = window.screen.availHeight + 'px';
+  //set correct 100% height
+  document.querySelector('body').style.height = window.innerHeight + 'px';
+  window.addEventListener('resize', ()=>{
+    document.querySelector('body').style.height = window.innerHeight + 'px';
+  });
 
   let user1_msg = document.querySelector('div.messages.user1');//tree of user1 messages
   let user2_msg = document.querySelector('div.messages.user2');//tree of user2 messages
@@ -17,11 +20,11 @@ window.onload = function () {
     if(textarea.value){
       if(textarea.value.replace(/ /g, '')!==''){
         let newMessageForActive = document.createElement('div');
-        newMessageForActive.innerHTML = textarea.value;
+        newMessageForActive.innerText = textarea.value;
         newMessageForActive.className = 'message user2'; //for correct color
 
         let newMessageForPassive = document.createElement('div');
-        newMessageForPassive.innerHTML = textarea.value;
+        newMessageForPassive.innerText = textarea.value;
         newMessageForPassive.className = 'message user1';
         if(textarea.id === 'user1-newMessage'){
           user1_msg.appendChild(newMessageForActive);
@@ -50,15 +53,19 @@ window.onload = function () {
   //create listeners for Enter key
   let textareas = document.querySelectorAll('textarea');
   for(let area of textareas){
-    area.addEventListener('keyup',(e)=>{
-      if (e.key === 'Enter') {
+    area.addEventListener('keydown',(e)=>{
+      if (e.key === 'Enter' && !e.ctrlKey){
         // Cancel the default action, if needed
         e.preventDefault();
         // Trigger the button element with a click
         let user = e.path[0].id.slice(0,5);
         document.querySelector(`.btn.${user}`).click();
+        return false;
+      }
+      if(e.key === 'Enter' && e.ctrlKey){
+        area.value = area.value + '\n';
       }
     })
-  };
+  }
 };
 
